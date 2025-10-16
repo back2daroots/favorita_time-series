@@ -1,0 +1,3 @@
+project,dataset,target,model,model_params,cv_splits,cv_step,cv_horizon,rmse,mae,smape,git,notes,timestamp
+Favorita-StoreSales,Favorita (Kaggle),sales,xgb,"{""n_estimators"": 600, ""max_depth"": 6, ""learning_rate"": 0.05, ""subsample"": 0.9, ""colsample_bytree"": 0.9, ""n_jobs"": -1}",4,7,7,207.8324985654386,63.838189590277416,72.3831628552374,,baseline run,2025-10-16T12:00:53
+Favorita-StoreSales,Favorita (Kaggle),sales,xgb,"{""n_estimators"": 600, ""max_depth"": 6, ""learning_rate"": 0.05, ""subsample"": 0.9, ""colsample_bytree"": 0.9, ""n_jobs"": -1}",4,7,7,207.8324985654386,63.838189590277416,72.3831628552374,,baseline run,2025-10-16T12:08:20

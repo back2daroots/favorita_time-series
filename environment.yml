@@ -1,0 +1,17 @@
+name: favorita-ts
+channels:
+- conda-forge
+dependencies:
+- python=3.11
+- numpy
+- pandas
+- scikit-learn
+- matplotlib
+- seaborn
+- statsmodels
+- xgboost
+- lightgbm
+- pyyaml
+- joblib
+- tabulate
+- pip

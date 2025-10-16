@@ -1,0 +1,37 @@
+data:
+  train_path: data/raw/train.csv
+  test_path:  data/raw/test.csv
+  oil_path:   data/raw/oil.csv
+  hol_path:   data/raw/holidays_events.csv
+  trans_path: data/raw/transactions.csv
+  date_col: date
+  id_cols: [store_nbr, family]
+  target_col: sales
+  freq: D
+  holdout_days: 28
+
+features:
+  lags: [1, 7, 14, 28]
+  rolling_mean_windows: [7, 28]
+  add_calendar: true
+  use_oil: true
+  use_transactions: true
+  use_holidays: true
+
+model:
+  kind: xgb
+  params:
+    n_estimators: 600
+    max_depth: 6
+    learning_rate: 0.05
+    subsample: 0.9
+    colsample_bytree: 0.9
+    n_jobs: -1
+
+cv:
+  splits: 4
+  step: 7
+  horizon: 7
+
+log:
+  path: experiments_log.csv

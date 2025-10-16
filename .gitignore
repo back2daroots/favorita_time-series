@@ -1,0 +1,13 @@
+data/*
+!data/.gitkeep
+models/*
+!models/.gitkeep
+.ipynb_checkpoints/
+__pycache__/
+.DS_Store
+*.pyc
+*.pyo
+*.pyd
+plots/*
+!plots/.gitkeep
+.env
