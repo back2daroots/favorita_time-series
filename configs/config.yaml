@@ -11,9 +11,16 @@ data:
   holdout_days: 28
 
 features:
-  lags: [1, 7, 14, 28]
-  rolling_mean_windows: [7, 28]
+  lags: [1, 7, 14, 28, 56, 84]
+  rolling_mean_windows: [7, 28, 56]
   add_calendar: true
+  calendar_extras: true
+  rolling_stats: [mean, std]
+  group_aggregates:
+    - { group_by: [store_nbr], windows: [7, 28], stats: [mean] }
+    - { group_by: [family],    windows: [7, 28], stats: [mean] }
+    - { group_by: [store_nbr, family], windows: [7, 28], stats: [median] }
+
   use_oil: true
   use_transactions: true
   use_holidays: true
