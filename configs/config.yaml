@@ -1,44 +1,74 @@
 data:
   train_path: data/raw/train.csv
-  test_path:  data/raw/test.csv
-  oil_path:   data/raw/oil.csv
-  hol_path:   data/raw/holidays_events.csv
+  test_path: data/raw/test.csv
+  oil_path: data/raw/oil.csv
+  hol_path: data/raw/holidays_events.csv
   trans_path: data/raw/transactions.csv
   date_col: date
-  id_cols: [store_nbr, family]
+  id_cols:
+  - store_nbr
+  - family
   target_col: sales
   freq: D
   holdout_days: 28
-
 features:
-  lags: [1, 7, 14, 28, 56, 84]
-  rolling_mean_windows: [7, 28, 56]
+  lags:
+  - 1
+  - 7
+  - 14
+  - 28
+  - 56
+  - 84
+  rolling_windows:
+  - 7
+  - 28
+  - 56
   add_calendar: true
   calendar_extras: true
-  rolling_stats: [mean, std]
+  rolling_stats:
+  - mean
+  - std
   group_aggregates:
-    - { group_by: [store_nbr], windows: [7, 28], stats: [mean] }
-    - { group_by: [family],    windows: [7, 28], stats: [mean] }
-    - { group_by: [store_nbr, family], windows: [7, 28], stats: [median] }
-
+  - group_by:
+    - store_nbr
+    windows:
+    - 7
+    - 28
+    stats:
+    - mean
+  - group_by:
+    - family
+    windows:
+    - 7
+    - 28
+    stats:
+    - mean
+  - group_by:
+    - store_nbr
+    - family
+    windows:
+    - 7
+    - 28
+    stats:
+    - median
   use_oil: true
   use_transactions: true
   use_holidays: true
-
 model:
   kind: xgb
   params:
-    n_estimators: 600
-    max_depth: 6
-    learning_rate: 0.05
-    subsample: 0.9
-    colsample_bytree: 0.9
+    n_estimators: 400
+    max_depth: 10
+    learning_rate: 0.02
+    subsample: 0.9233589392465844
+    colsample_bytree: 0.7218455076693483
     n_jobs: -1
-
+    min_child_weight: 9.690688297671034
+    reg_alpha: 0.0684233026512157
+    reg_lambda: 1.1602287406094018
 cv:
   splits: 4
   step: 7
   horizon: 7
-
 log:
   path: experiments_log.csv
