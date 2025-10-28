@@ -25,6 +25,8 @@ features:
   - 56
   add_calendar: true
   calendar_extras: true
+  use_onpromotion: true
+  prepost_holiday: [1]
   rolling_stats:
   - mean
   - std
@@ -37,20 +39,15 @@ features:
     stats:
     - mean
   - group_by:
-    - family
-    windows:
-    - 7
-    - 28
-    stats:
-    - mean
-  - group_by:
     - store_nbr
     - family
     windows:
     - 7
     - 28
     stats:
-    - median
+    - mean
+    - std
+  add_interactions: true
   use_oil: true
   use_transactions: true
   use_holidays: true
