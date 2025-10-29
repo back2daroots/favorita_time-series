@@ -17,6 +17,7 @@ Build a time-series forecasting model to predict daily unit sales for each produ
 
 ---
 ## 📂 Project Structure
+```
 store_sales/
 ├── configs/
 │   └── config.yaml              # Feature, model, and path settings
@@ -39,7 +40,7 @@ store_sales/
 ├── experiments_log.csv          # Experiment registry
 ├── environment.yml              # Environment specification
 └── .gitignore
-
+```
 ---
 
 ## ⚙️ Modeling Pipeline
