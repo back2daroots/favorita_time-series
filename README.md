@@ -3,12 +3,21 @@
 **Goal:**  
 Build a time-series forecasting model to predict daily unit sales for each product family in each store, using historical sales, promotions, and calendar data.
 
+## 🏷️ Overview
+
+This project tackles the Corporación Favorita Store Sales Forecasting challenge — predicting daily unit sales for thousands of product families across multiple Ecuadorian stores.
+The goal was to build an end-to-end machine learning pipeline capable of modeling temporal dependencies, promotions, and holiday effects while maintaining scalability for millions of rows.
+
+The final solution combines LightGBM and XGBoost models via simple weighted blending, achieving a holdout sMAPE of ~50.9, positioning the solution among the top-performing public submissions.
+
+
 ## 📊 Dataset
 
 | Property | Description |
 |-----------|--------------|
 | **Source** | [Kaggle — Store Sales Time Series Forecasting](https://www.kaggle.com/competitions/store-sales-time-series-forecasting) |
 | **Size** | ~3.0M records across 54 stores and 33 product families |
+|Test size | ~28K rows (28 forecast days) |
 | **Target Variable** | `sales` — daily unit sales for each (store, family) |
 
 **Author:** back2daroots  
@@ -33,17 +42,18 @@ store_sales/
 │   ├── metrics.py               # RMSE, MAE, sMAPE, CV utils
 │   ├── logging_utils.py         # Experiment logging
 │   └── utils.py                 # Helpers, validation, config parsing
-│
+├── plots/                       # Residuals, feature importance, etc
+  
 ├── cv_run.py                    # Cross-validation runner
 ├── train.py                     # Train final model on full data
 ├── analyze_errors.py            # Post-holdout error analysis
 ├── experiments_log.csv          # Experiment registry
+├── predict_test.py              # Create a submission file
+├── blend_holdout_quick.py       # Execute blending
 ├── environment.yml              # Environment specification
 └── .gitignore
 ```
 ---
-
-## ⚙️ Modeling Pipeline
 
 ### 1️⃣ Feature Engineering
 The pipeline builds features per `(store_nbr, family)` group:
@@ -63,18 +73,25 @@ All features are computed **causally** (using `shift(1)`), ensuring no data leak
 Models are defined in `src/models.py` and configured in `configs/config.yaml`.
 
 Models experimented with:
-- `XGBoostRegressor` (baseline)
-- `LightGBMRegressor` (next)
-- `CatBoostRegressor` (next)
+- `XGBoostRegressor`  (hist tree method, tuned with Optuna).
+- `LightGBMRegressor` (fast histogram booster).
+- `CatBoostRegressor` (baseline comparison).
+- `Final blend` = 0.35 * LGBM + 0.65 * XGB
 
 Hyperparameter tuning was performed using **Optuna** with a 5-fold **time-series CV** split.
 
-**Best model:** XGBoost  
-**Best sMAPE:** `51.26`
+## Validation
+	•	Date-based holdout split (last 28 days) + 4-fold time-based CV.
+	•	Metrics: RMSE, MAE, and sMAPE (primary ranking metric).
 
 ---
 
-## 📈 Final Model Performance
+## 💡 Key Insights
+	•	Combining short and long rolling windows (7/28/56 days) captured both weekly and monthly trends.
+	•	Promotion and holiday-related features notably improved generalization and reduced overfitting.
+	•	Hierarchical (store/family) rolling means stabilized model behavior for smaller sales segments.
+	•	Simple linear blending of XGB + LGBM reduced sMAPE by ~1.4 pp versus individual models.
+	•	Major residuals concentrated in Beverages, Grocery I, and Cleaning families and stores 44–47.
 
 ---
 
@@ -107,20 +124,6 @@ Hyperparameter tuning was performed using **Optuna** with a 5-fold **time-series
 | 3 (Thursday) | 17.94 |
 | 1 (Tuesday)  | 17.93 |
 | 2 (Wednesday)| 17.78 |
-
-🧭 **Insight:**  
-Errors peak for **promo-heavy product families** (Beverages, Grocery I)  
-and **weekend demand**, especially in stores 44–47.
-
----
-
-## 🧩 Next Steps
-
-- Add **store- and category-level trend features**  
-- Model **promotion durations** and multi-week promo effects  
-- Introduce **seasonal Fourier features** (month, quarter)  
-- Explore **model blending** (CatBoost + XGB)  
-- Add **SHAP-based feature importance** for interpretability  
 
 ---
 ## 🏁 Final Results
