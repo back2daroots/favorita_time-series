@@ -123,6 +123,15 @@ and **weekend demand**, especially in stores 44–47.
 - Add **SHAP-based feature importance** for interpretability  
 
 ---
+## 🏁 Final Results
+
+| Model      | RMSE | MAE | sMAPE | Comment |
+|-------------|------|-----|--------|----------|
+| XGB         | 56.9 | 20.6 | 51.3 | Tuned baseline |
+| LGBM        | 56.8 | 18.6 | 52.3 | Better alignment CV vs holdout |
+| CatBoost    | 73.1 | 26.2 | 61.4 | Stable but lower |
+| Blend (0.35 LGBM / 0.65 XGB) | — | — | **50.9** | Best submission |
+
 
 ## 🚀 How to Run
 
