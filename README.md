@@ -126,6 +126,22 @@ Hyperparameter tuning was performed using **Optuna** with a 5-fold **time-series
 | 2 (Wednesday)| 17.78 |
 
 ---
+### Model Diagnostics
+
+**Residuals vs Predicted**
+![Residuals vs Predicted](plots/residuals_scatter_best.png)
+
+**MAE by Product Family**
+![MAE by Product Family](plots/mae_by_family.png)
+
+**sMAPE by Day of Week**
+![sMAPE by DOW](plots/smape_by_dow.png)
+
+**Feature Importance (LGBM)**
+![Feature Importance](plots/fi_lgbm_top20.png)
+
+
+---
 ## 🏁 Final Results
 
 | Model      | RMSE | MAE | sMAPE | Comment |
