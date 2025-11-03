@@ -29,28 +29,31 @@ The final solution combines LightGBM and XGBoost models via simple weighted blen
 ```
 store_sales/
 ├── configs/
-│   └── config.yaml              # Feature, model, and path settings
+│   └── config.yaml                				 # Feature, model, and path settings
 ├── data/
-│   ├── raw/                     # Original CSVs (train, test, oil, holidays, transactions)
-│   └── processed/               # Processed and feature-enriched data
-├── models/                      # Trained model artifacts (.joblib)
-├── results/                     # Evaluation outputs and error diagnostics
+│   ├── raw/                      				 # Original CSVs (train, test, oil, holidays, transactions)
+│   └── processed/                 				 # Processed and feature-enriched data
+├── models/                        				 # Trained model artifacts (.joblib)
+├── results/                      				 # Evaluation outputs and error diagnostics
 ├── src/
-│   ├── data.py                  # Data loading and preparation
-│   ├── features.py              # Feature generation and FE logic
-│   ├── models.py                # Model definitions and wrappers
-│   ├── metrics.py               # RMSE, MAE, sMAPE, CV utils
-│   ├── logging_utils.py         # Experiment logging
-│   └── utils.py                 # Helpers, validation, config parsing
-├── plots/                       # Residuals, feature importance, etc
-  
-├── cv_run.py                    # Cross-validation runner
-├── train.py                     # Train final model on full data
-├── analyze_errors.py            # Post-holdout error analysis
-├── experiments_log.csv          # Experiment registry
-├── predict_test.py              # Create a submission file
-├── blend_holdout_quick.py       # Execute blending
-├── environment.yml              # Environment specification
+│   ├── data.py                      			 # Data loading and preparation
+│   ├── features.py               				 # Feature generation and FE logic
+│   ├── models.py                 				 # Model definitions and wrappers
+│   ├── metrics.py                				 # RMSE, MAE, sMAPE, CV utils
+│   ├── logging_utils.py         			     # Experiment logging
+│   └── utils.py                  			     # Helpers, validation, config parsing
+├── plots/                       			     # Residuals, feature importance, etc
+    ├── residuals_scatter_best.png				 # Residuals vs Predicted 
+    ├── mae_by_family.png						 # Top-10 product families by MAE
+    ├── smape_by_dow.png						 # sMAPE by day of week
+    └── fi_blend(xgb:0.65,lgbm:0.35)_top20.png   # Top-20 most important features
+├── cv_run.py                                    # Cross-validation runner
+├── train.py                                     # Train final model on full data
+├── analyze_errors.py         				     # Post-holdout error analysis
+├── experiments_log.csv      				     # Experiment registry
+├── predict_test.py            				     # Create a submission file
+	├── blend_holdout_quick.py     			     # Execute blending
+├── environment.yml            				     # Environment specification
 └── .gitignore
 ```
 ---
@@ -140,8 +143,8 @@ Top-10 product families with the highest mean absolute error — beverages and g
 ![sMAPE by DOW](plots/smape_by_dow.png)
 sMAPE by day of week — slightly higher variance on weekends.
 
-**Feature Importance (LGBM)**
-![Feature Importance](plots/fi_blend(xgb/0.65,lgbm/0.35)_top20.png)
+**Feature Importance (Blend)**
+![Feature Importance](plots/fi_blend(xgb:0.65,lgbm:0.35)_top20.png)
 Top-20 most important features according to the Blend Model — lag-based and rolling mean features dominate.”
 
 
