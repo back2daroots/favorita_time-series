@@ -1,5 +1,9 @@
 # 🏪 Favorita Store Sales Forecasting
 
+![Python](https://img.shields.io/badge/python-3.11-blue)
+![LightGBM](https://img.shields.io/badge/model-LightGBM-success)
+![Kaggle](https://img.shields.io/badge/score-Top%20500%20🏅-yellow)
+
 **Goal:**  
 Build a time-series forecasting model to predict daily unit sales for each product family in each store, using historical sales, promotions, and calendar data.
 
