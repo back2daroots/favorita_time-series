@@ -130,15 +130,19 @@ Hyperparameter tuning was performed using **Optuna** with a 5-fold **time-series
 
 **Residuals vs Predicted**
 ![Residuals vs Predicted](plots/residuals_scatter_best.png)
+Top-10 product families with the highest mean absolute error — beverages and groceries show larger volatility in demand.
 
 **MAE by Product Family**
 ![MAE by Product Family](plots/mae_by_family.png)
+Top-10 product families with the highest mean absolute error — beverages and groceries show larger volatility in demand.
 
 **sMAPE by Day of Week**
 ![sMAPE by DOW](plots/smape_by_dow.png)
+sMAPE by day of week — slightly higher variance on weekends.
 
 **Feature Importance (LGBM)**
-![Feature Importance](plots/fi_lgbm_top20.png)
+![Feature Importance](plots/fi_blend(xgb/0.65,lgbm/0.35)_top20.png)
+Top-20 most important features according to the Blend Model — lag-based and rolling mean features dominate.”
 
 
 ---
